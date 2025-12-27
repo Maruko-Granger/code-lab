@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>糖尿病饮食和运动管理</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <button id="homeBtn" class="home-btn" title="回到主页">🏠</button>
+            <h1>糖尿病饮食和运动管理</h1>
+            <!-- <button id="settingsBtn" class="settings-btn">⚙️ 设置</button> -->
+        </header>
+        
+        <!-- 搜索栏
+        <div class="search-container">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search" class="search-input">
+            </div>
+        </div> -->
+        
+        <!-- 分类标签
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="diet">建议饮食</button>
+            <button class="category-tab" data-category="exercise">运动</button>
+            <button class="category-tab" data-category="medication">用药</button>
+        </div> -->
+
+        <!-- 侧边菜单 -->
+        <div id="sideMenu" class="side-menu hidden">
+            <div class="side-menu-content">
+                <button id="closeMenuBtn" class="close-menu-btn">✕</button>
+                <h2>菜单</h2>
+                <button id="settingsBtn" class="menu-item">⚙️ 设置</button>
+                <button id="aboutBtn" class="menu-item">ℹ️ 关于</button>
+            </div>
+        </div>
+
+        <!-- 配置面板 -->
+        <div id="configPanel" class="config-panel hidden">
+            <div class="config-content">
+                <h2>API 配置</h2>
+                <div class="form-group">
+                    <label for="apiUrl">API 地址</label>
+                    <input type="text" id="apiUrl" placeholder="https://open.bigmodel.cn/api/paas/v4/chat/completions" aria-label="API地址输入框">
+                </div>
+                <div class="form-group">
+                    <label for="apiKey">API 密钥</label>
+                    <input type="password" id="apiKey" placeholder="请输入您的API密钥" aria-label="API密钥输入框">
+                </div>
+                <div class="form-group">
+                    <label for="modelName">模型名称</label>
+                    <input type="text" id="modelName" placeholder="glm-4" value="glm-4" aria-label="模型名称输入框">
+                </div>
+                <div class="button-group">
+                    <button id="saveConfigBtn" class="btn btn-primary">保存配置</button>
+                    <button id="closeConfigBtn" class="btn btn-secondary">关闭</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主聊天区域 -->
+        <main class="main-content">
+            <!-- 对话队列框 -->
+            <div class="chat-container">
+                <div id="chatMessages" class="chat-messages">
+                    <div class="welcome-message">
+                        <p>👋 欢迎使用糖尿病饮食和运动管理系统</p>
+                        <p>您可以通过文字、语音或图片的方式输入医嘱，系统将为您生成总结。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 输入区域 -->
+            <div class="input-area">
+                <div class="input-tabs">
+                    <button class="tab-btn active" data-tab="text">📝 文字</button>
+                    <button class="tab-btn" data-tab="voice">🎤 语音</button>
+                    <button class="tab-btn" data-tab="image">📷 图片</button>
+                </div>
+
+                <!-- 文字输入 -->
+                <div id="textInput" class="input-panel active">
+                    <textarea id="textMessage" placeholder="请输入医嘱内容..." rows="4"></textarea>
+                </div>
+
+                <!-- 语音输入 -->
+                <div id="voiceInput" class="input-panel">
+                    <div class="voice-recorder">
+                        <button id="recordBtn" class="record-btn">
+                            <span class="record-icon">🎤</span>
+                            <span class="record-text">点击开始录音</span>
+                        </button>
+                        <div id="recordingStatus" class="recording-status hidden">正在录音...</div>
+                        <audio id="audioPlayback" controls class="hidden"></audio>
+                    </div>
+                </div>
+
+                <!-- 图片输入 -->
+                <div id="imageInput" class="input-panel">
+                    <div class="image-upload">
+                        <input type="file" id="imageFile" accept="image/*" class="file-input">
+                        <label for="imageFile" class="file-label">
+                            <span class="upload-icon">📷</span>
+                            <span>点击选择图片或拖拽图片到此处</span>
+                        </label>
+                        <div id="imagePreview" class="image-preview hidden">
+                            <img id="previewImg" src="" alt="预览">
+                            <button id="removeImageBtn" class="remove-btn">✕</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 发送按钮 -->
+                <div class="send-area">
+                    <button id="sendBtn" class="btn btn-send">发送</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 加载提示 -->
+    <div id="loadingIndicator" class="loading hidden">
+        <div class="spinner"></div>
+        <p>正在生成总结...</p>
+    </div>
+
+    <!-- 运动计划面板 -->
+    <div id="exercisePlanPanel" class="exercise-plan-panel hidden">
+        <div class="exercise-plan-content">
+            <div class="exercise-plan-header">
+                <h2>28天运动计划</h2>
+            </div>
+            
+            <!-- 计划合理性说明 -->
+            <div class="plan-rationale">
+                <p id="planRationaleText"></p>
+            </div>
+            
+            <!-- 提醒设置 -->
+            <div class="reminder-setting">
+                <label for="reminderTime">设置每日提醒时间：</label>
+                <div class="time-input-group">
+                    <input type="time" id="reminderTime" class="time-input">
+                    <button id="saveReminderBtn" class="btn btn-reminder">设置提醒</button>
+                </div>
+                <div id="reminderStatus" class="reminder-status hidden"></div>
+            </div>
+            
+            <!-- 日历视图 -->
+            <div class="calendar-container">
+                <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
+            
+            <!-- 重新设计计划区域 -->
+            <div class="redesign-section">
+                <h3>重新设计计划</h3>
+                <div class="redesign-input-group">
+                    <textarea id="redesignInput" class="redesign-textarea" placeholder="请输入您的需求，例如：我希望增加更多有氧运动，减少力量训练..." rows="3"></textarea>
+                    <button id="redesignBtn" class="btn btn-redesign">重新设计计划</button>
+                </div>
+                <div id="redesignLoading" class="redesign-loading hidden">
+                    <div class="spinner-small"></div>
+                    <span>AI正在为您生成新的运动计划...</span>
+                </div>
+            </div>
+            
+            <!-- 进入饮食计划按钮 -->
+            <div class="navigation-section">
+                <button id="goToDietBtn" class="btn btn-diet">进入饮食计划</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

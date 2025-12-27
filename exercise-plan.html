@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>28天运动计划</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <button id="backBtn" class="back-btn">← 返回</button>
+            <h1>28天运动计划</h1>
+            <button id="homeBtn" class="home-btn" title="回到主页">🏠</button>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main class="main-content exercise-plan-main">
+            <!-- 计划合理性说明 -->
+            <div class="plan-rationale">
+                <p id="planRationaleText"></p>
+            </div>
+            
+            <!-- 提醒设置 -->
+            <div class="reminder-setting">
+                <label for="reminderTime">设置每日提醒时间：</label>
+                <div class="time-input-group">
+                    <input type="time" id="reminderTime" class="time-input">
+                    <button id="saveReminderBtn" class="btn btn-reminder">设置提醒</button>
+                </div>
+                <div id="reminderStatus" class="reminder-status hidden"></div>
+            </div>
+            
+            <!-- 日历视图 -->
+            <div class="calendar-container">
+                <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
+            
+            <!-- 重新设计计划区域 -->
+            <div class="redesign-section">
+                <h3>重新设计计划</h3>
+                <div class="redesign-input-group">
+                    <textarea id="redesignInput" class="redesign-textarea" placeholder="请输入您的需求，例如：我希望增加更多有氧运动，减少力量训练..." rows="3"></textarea>
+                    <button id="redesignBtn" class="btn btn-redesign">重新设计计划</button>
+                </div>
+                <div id="redesignLoading" class="redesign-loading hidden">
+                    <div class="spinner-small"></div>
+                    <span>AI正在为您生成新的运动计划...</span>
+                </div>
+            </div>
+            
+            <!-- 进入饮食计划按钮 -->
+            <div class="navigation-section">
+                <button id="goToDietBtn" class="btn btn-diet">进入饮食计划</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="exercise-plan-data.js"></script>
+    <script src="exercise-plan.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>个人主页 - 糖尿病管理</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div style="width: 44px;"></div>
+            <h1>个人主页</h1>
+            <div style="width: 44px;"></div>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main class="main-content home-content">
+            <!-- 医嘱历史记录 -->
+            <section class="home-section">
+                <h2 class="section-title">📋 医嘱记录</h2>
+                <div id="prescriptionHistory" class="prescription-list">
+                    <p class="empty-message">暂无医嘱记录</p>
+                </div>
+            </section>
+
+            <!-- 运动计划可视化 -->
+            <section class="home-section">
+                <div class="section-header">
+                    <h2 class="section-title">🏃 运动计划</h2>
+                    <button id="goToDietBtn" class="section-action-btn">查看饮食计划 →</button>
+                </div>
+                <div id="exercisePlanVisualization" class="visualization-container">
+                    <div class="plan-summary">
+                        <div class="plan-stat">
+                            <div class="plan-stat-value" id="planDays">28</div>
+                            <div class="plan-stat-label">计划天数</div>
+                        </div>
+                        <div class="plan-stat">
+                            <div class="plan-stat-value" id="planActivities">4</div>
+                            <div class="plan-stat-label">运动类型</div>
+                        </div>
+                    </div>
+                    <div class="plan-preview" id="planPreview">
+                        <p class="empty-message">暂无运动计划</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 打卡情况可视化 -->
+            <section class="home-section">
+                <div class="section-header">
+                    <h2 class="section-title">📊 打卡情况</h2>
+                    <button id="goToCheckinBtn" class="section-action-btn">继续打卡 →</button>
+                </div>
+                <div id="checkinVisualization" class="visualization-container">
+                    <div class="checkin-stats">
+                        <div class="checkin-stat-card">
+                            <div class="checkin-stat-value" id="homeCompletedDays">0</div>
+                            <div class="checkin-stat-label">已完成</div>
+                        </div>
+                        <div class="checkin-stat-card">
+                            <div class="checkin-stat-value" id="homeStreakDays">0</div>
+                            <div class="checkin-stat-label">连续打卡</div>
+                        </div>
+                        <div class="checkin-stat-card">
+                            <div class="checkin-stat-value" id="homeCompletionRate">0%</div>
+                            <div class="checkin-stat-label">完成率</div>
+                        </div>
+                    </div>
+                    <div class="checkin-chart" id="checkinChart">
+                        <p class="empty-message">开始打卡查看进度</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="exercise-plan-data.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>
+

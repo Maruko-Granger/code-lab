@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>28天打卡监督 - 运动计划</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <button id="backBtn" class="back-btn">← 返回</button>
+            <h1>28天打卡监督</h1>
+            <button id="homeBtn" class="home-btn" title="回到主页">🏠</button>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 统计信息 -->
+            <div class="statistics-container">
+                <div class="stat-card">
+                    <div class="stat-value" id="completedDays">0</div>
+                    <div class="stat-label">已完成天数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="streakDays">0</div>
+                    <div class="stat-label">连续打卡</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="completionRate">0%</div>
+                    <div class="stat-label">完成率</div>
+                </div>
+            </div>
+
+            <!-- 打卡日历 -->
+            <div class="checkin-container">
+                <h2>28天运动计划</h2>
+                <div id="checkinCalendar" class="checkin-calendar"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 鼓励弹窗 -->
+    <div id="encouragementModal" class="encouragement-modal hidden">
+        <div class="encouragement-content">
+            <div class="encouragement-icon">🎉</div>
+            <div class="encouragement-text" id="encouragementText">太棒了！继续保持！</div>
+        </div>
+    </div>
+
+    <script src="exercise-plan-data.js"></script>
+    <script src="checkin.js"></script>
+</body>
+</html>
+
